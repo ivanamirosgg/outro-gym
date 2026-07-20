@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OUTRO. — El punto final</title>
+<meta name="description" content="OUTRO lanza su propio suplemento. Proteína limpia, sin rodeos. Preventa exclusiva del Lote 001.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --negro:#0a0a0a;
+    --blanco:#ffffff;
+    --gris:#f4f4f4;
+    --gris-medio:#8a8a8a;
+    --display:'Archivo Black',sans-serif;
+    --body:'Archivo',sans-serif;
+    --mono:'Space Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    background:var(--blanco);
+    color:var(--negro);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--negro);color:var(--blanco)}
+  :focus-visible{outline:3px solid var(--negro);outline-offset:3px}
+
+  /* ============ CURSOR: EL PUNTO ============ */
+  @media (pointer:fine){
+    body{cursor:none}
+    a,button,input{cursor:none}
+    .cursor{
+      position:fixed;top:0;left:0;z-index:9999;
+      width:14px;height:14px;border-radius:50%;
+      background:#fff;
+      pointer-events:none;
+      mix-blend-mode:difference;
+      transform:translate(-50%,-50%);
+      transition:width .25s ease,height .25s ease;
+    }
+    .cursor.grande{width:64px;height:64px}
+  }
+  @media (pointer:coarse){.cursor{display:none}}
+
+  /* ============ INTRO ============ */
+  .intro{
+    position:fixed;inset:0;z-index:1000;
+    background:var(--negro);
+    display:flex;align-items:center;justify-content:center;
+    animation:introSalida .6s ease 1.6s both;
+  }
+  .intro-palabra{
+    font-family:var(--display);color:var(--blanco);
+    font-size:clamp(2.5rem,8vw,6rem);letter-spacing:-.03em;
+    display:flex;align-items:baseline;
+    animation:introTexto .5s ease .1s both;
+  }
+  .intro-punto{
+    width:.5em;height:.5em;border-radius:50%;
+    background:var(--blanco);margin-left:.1em;
+    animation:introRebote .8s cubic-bezier(.34,1.56,.64,1) .55s both;
+  }
+  @keyframes introTexto{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes introRebote{
+    0%{transform:translateY(-2.5em) scale(.5);opacity:0}
+    60%{transform:translateY(0) scale(1.25);opacity:1}
+    100%{transform:translateY(0) scale(1)}
+  }
+  @keyframes introSalida{
+    from{opacity:1;visibility:visible}
+    to{opacity:0;visibility:hidden}
+  }
+
+  /* ============ HEADER ============ */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 32px;
+    mix-blend-mode:difference;
+  }
+  .logo{
+    font-family:var(--display);
+    font-size:1.4rem;letter-spacing:-.03em;
+    text-decoration:none;color:#fff;
+  }
+  .logo span{display:inline-block;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+  .logo:hover span{transform:scale(1.5)}
+  .header-link{
+    font-family:var(--mono);font-size:.75rem;letter-spacing:.15em;
+    text-transform:uppercase;color:#fff;text-decoration:none;
+    border-bottom:2px solid #fff;padding-bottom:2px;
+  }
+
+  /* ============ BOTONES ============ */
+  .btn{
+    font-family:var(--body);font-weight:700;font-size:.85rem;
+    letter-spacing:.08em;text-transform:uppercase;
+    background:var(--negro);color:var(--blanco);
+    border:2px solid var(--negro);
+    padding:16px 36px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:12px;
+    position:relative;overflow:hidden;
+    transition:color .3s;
+    isolation:isolate;
+  }
+  .btn::after{
+    content:'';position:absolute;inset:0;z-index:-1;
+    background:var(--blanco);
+    transform:scaleY(0);transform-origin:bottom;
+    transition:transform .3s cubic-bezier(.65,0,.35,1);
+  }
+  .btn:hover,.btn:focus-visible{color:var(--negro)}
+  .btn:hover::after,.btn:focus-visible::after{transform:scaleY(1)}
+  .btn .b-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+  .btn-outline{background:transparent;color:var(--negro)}
+  .btn-outline::after{background:var(--negro)}
+  .btn-outline:hover,.btn-outline:focus-visible{color:var(--blanco)}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:120px 32px 80px;
+    position:relative;
+  }
+  .hero-bg-dot{
+    position:absolute;right:-14vw;top:8%;
+    width:52vw;height:52vw;max-width:720px;max-height:720px;
+    background:var(--negro);border-radius:50%;
+    opacity:.045;pointer-events:none;
+    will-change:transform;
+  }
+  .hero-eyebrow{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.2em;
+    text-transform:uppercase;margin-bottom:32px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .hero-eyebrow::before{content:'';width:48px;height:2px;background:var(--negro)}
+  .hero h1{
+    font-family:var(--display);
+    font-size:clamp(2.6rem,9.5vw,8.2rem);
+    line-height:.95;letter-spacing:-.035em;
+    text-transform:uppercase;
+  }
+  .hero h1 .linea-fija{display:block}
+  .palabra-caja{
+    display:flex;align-items:baseline;min-height:1.05em;
+  }
+  .palabra-giratoria{
+    color:transparent;
+    -webkit-text-stroke:2.5px var(--negro);
+    text-stroke:2.5px var(--negro);
+    display:inline-block;
+  }
+  .palabra-giratoria.entrando{animation:palabraEntra .45s cubic-bezier(.22,1,.36,1) both}
+  @keyframes palabraEntra{
+    from{opacity:0;transform:translateY(.35em)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .punto-sello{
+    display:inline-block;
+    width:.5em;height:.5em;border-radius:50%;
+    background:var(--negro);margin-left:.1em;
+    flex-shrink:0;
+  }
+  .punto-sello.sellar{animation:sellar .5s cubic-bezier(.34,1.8,.64,1) both}
+  @keyframes sellar{
+    0%{transform:translateY(-1.6em) scale(.4);opacity:0}
+    55%{transform:translateY(0) scale(1.3);opacity:1}
+    100%{transform:translateY(0) scale(1)}
+  }
+  .hero-sub{
+    margin-top:40px;max-width:50ch;
+    font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.6;
+    font-weight:500;color:#2c2c2c;
+  }
+  .hero-cta{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap}
+  .hero-scroll{
+    position:absolute;bottom:28px;left:32px;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--gris-medio);
+    display:flex;align-items:center;gap:10px;
+  }
+  .hero-scroll::after{
+    content:'';width:8px;height:8px;border-radius:50%;background:var(--negro);
+    animation:caer 1.6s ease-in-out infinite;
+  }
+  @keyframes caer{
+    0%,100%{transform:translateY(0);opacity:1}
+    50%{transform:translateY(10px);opacity:.3}
+  }
+
+  /* ============ MARQUEE ============ */
+  .marquee{
+    background:var(--negro);color:var(--blanco);
+    overflow:hidden;white-space:nowrap;
+    padding:20px 0;
+    transform:rotate(-1.2deg) scale(1.02);
+    margin:0 -10px;
+  }
+  .marquee-track{display:inline-block;animation:desplazar 26s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee span{
+    font-family:var(--display);font-size:1.25rem;
+    text-transform:uppercase;letter-spacing:.05em;margin-right:56px;
+  }
+  .marquee .hueco{
+    color:transparent;-webkit-text-stroke:1.5px var(--blanco);
+  }
+  .marquee .dot-sep{
+    display:inline-block;width:11px;height:11px;
+    background:var(--blanco);border-radius:50%;
+    margin-right:56px;vertical-align:middle;
+  }
+  @keyframes desplazar{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ============ PRODUCTO ============ */
+  .producto{
+    display:grid;grid-template-columns:1fr 1fr;
+    min-height:95vh;
+    border-top:1px solid var(--negro);
+    border-bottom:1px solid var(--negro);
+    margin-top:-8px;
+  }
+  .producto-visual{
+    background:var(--gris);
+    display:flex;align-items:center;justify-content:center;
+    padding:90px 40px;
+    border-right:1px solid var(--negro);
+    position:relative;overflow:hidden;
+  }
+  .escena{position:relative;width:min(360px,80%);aspect-ratio:1}
+  .anillo{
+    position:absolute;inset:-14%;
+    animation:girar 26s linear infinite;
+  }
+  .anillo text{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.35em;
+    text-transform:uppercase;fill:var(--negro);
+  }
+  @keyframes girar{to{transform:rotate(360deg)}}
+  .tarro{
+    position:absolute;inset:12% 22%;
+    background:var(--negro);
+    border-radius:20px 20px 26px 26px;
+    box-shadow:0 40px 70px rgba(0,0,0,.28);
+    animation:flotar 5s ease-in-out infinite;
+  }
+  @keyframes flotar{
+    0%,100%{transform:translateY(0) rotate(-1deg)}
+    50%{transform:translateY(-14px) rotate(1deg)}
+  }
+  .tarro::before{
+    content:'';position:absolute;top:-14px;left:7%;right:7%;height:30px;
+    background:var(--negro);border-radius:9px;
+    border-bottom:3px solid #2c2c2c;
+  }
+  .tarro-etiqueta{
+    position:absolute;left:0;right:0;top:24%;bottom:13%;
+    background:var(--blanco);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:9px;padding:16px;text-align:center;
+  }
+  .tarro-etiqueta .marca{font-family:var(--display);font-size:1.9rem;letter-spacing:-.03em}
+  .tarro-etiqueta .tipo{
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;
+    text-transform:uppercase;
+    border-top:2px solid var(--negro);border-bottom:2px solid var(--negro);
+    padding:6px 0;width:100%;
+  }
+  .tarro-etiqueta .dato{font-family:var(--mono);font-size:.6rem;color:#444;letter-spacing:.05em}
+  .producto-info{
+    padding:110px 64px;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .seccion-eyebrow{
+    font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;
+    text-transform:uppercase;margin-bottom:22px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .seccion-eyebrow::before{content:'';width:9px;height:9px;background:currentColor;border-radius:50%}
+  .producto-info h2{
+    font-family:var(--display);
+    font-size:clamp(2rem,4vw,3.4rem);
+    line-height:1;letter-spacing:-.02em;text-transform:uppercase;
+    margin-bottom:30px;
+  }
+  .producto-info h2 em{
+    font-style:normal;color:transparent;-webkit-text-stroke:2px var(--negro);
+  }
+  .producto-info p{
+    font-size:1.05rem;line-height:1.65;color:#2c2c2c;max-width:46ch;margin-bottom:18px;
+  }
+  .claims{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+  .claim{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+    text-transform:uppercase;
+    border:1.5px solid var(--negro);border-radius:999px;
+    padding:9px 20px;
+    transition:background .25s,color .25s;
+  }
+  .claim:hover{background:var(--negro);color:var(--blanco)}
+
+  /* ============ NÚMEROS GIGANTES ============ */
+  .numeros{
+    padding:130px 32px;
+    max-width:1280px;margin:0 auto;
+  }
+  .numeros-titulo{
+    font-family:var(--display);
+    font-size:clamp(1.8rem,3.5vw,2.8rem);
+    text-transform:uppercase;letter-spacing:-.02em;
+    max-width:22ch;margin-bottom:70px;line-height:1.05;
+  }
+  .numeros-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border-top:2px solid var(--negro);
+  }
+  .numero{
+    border-bottom:2px solid var(--negro);
+    padding:44px 28px 52px;
+    position:relative;
+    transition:background .35s,color .35s;
+  }
+  .numero:not(:last-child){border-right:2px solid var(--negro)}
+  .numero:hover{background:var(--negro);color:var(--blanco)}
+  .numero .cifra{
+    font-family:var(--display);
+    font-size:clamp(4rem,9vw,8rem);
+    line-height:1;letter-spacing:-.04em;
+    color:transparent;
+    -webkit-text-stroke:2.5px currentColor;
+    display:block;
+    transition:color .35s;
+  }
+  .numero:hover .cifra{color:currentColor;-webkit-text-stroke:0}
+  .numero .unidad{
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.15em;
+    text-transform:uppercase;display:block;margin-top:18px;
+  }
+  .numero .detalle{
+    font-size:.92rem;line-height:1.55;margin-top:10px;opacity:.75;max-width:28ch;
+  }
+
+  /* ============ ETIQUETA ============ */
+  .datos{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:70px;
+    padding:0 32px 130px;max-width:1280px;margin:0 auto;
+    align-items:center;
+  }
+  .datos-copy h2{
+    font-family:var(--display);
+    font-size:clamp(2rem,4.5vw,3.6rem);
+    line-height:1;letter-spacing:-.02em;text-transform:uppercase;
+    margin-bottom:26px;
+  }
+  .datos-copy p{font-size:1.05rem;line-height:1.65;color:#2c2c2c;max-width:46ch;margin-bottom:16px}
+  .panel{
+    border:2.5px solid var(--negro);
+    padding:24px 28px;
+    font-family:var(--mono);
+    background:var(--blanco);
+    box-shadow:12px 12px 0 var(--negro);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .panel:hover{transform:translate(-4px,-4px);box-shadow:16px 16px 0 var(--negro)}
+  .panel-titulo{
+    font-family:var(--display);font-size:1.8rem;letter-spacing:-.02em;
+    border-bottom:10px solid var(--negro);
+    padding-bottom:10px;margin-bottom:8px;
+  }
+  .panel-sub{
+    font-size:.72rem;letter-spacing:.05em;
+    border-bottom:4px solid var(--negro);
+    padding-bottom:8px;margin-bottom:4px;
+  }
+  .panel-fila{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:11px 0;border-bottom:1px solid var(--negro);
+    font-size:.9rem;
+  }
+  .panel-fila.destacada{border-bottom:4px solid var(--negro)}
+  .panel-nota{font-size:.66rem;line-height:1.5;padding-top:12px;color:#333}
+
+  /* ============ RITUAL ============ */
+  .ritual{
+    background:var(--negro);color:var(--blanco);
+    padding:130px 32px;position:relative;overflow:hidden;
+  }
+  .ritual-inner{max-width:1280px;margin:0 auto;position:relative}
+  .ritual h2{
+    font-family:var(--display);
+    font-size:clamp(2.2rem,5.5vw,4.4rem);
+    line-height:.98;letter-spacing:-.02em;text-transform:uppercase;
+    margin-bottom:70px;max-width:16ch;
+  }
+  .ritual h2 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--blanco)}
+  .pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#333}
+  .paso{
+    background:var(--negro);padding:40px 30px 48px;
+    transition:background .3s,color .3s;
+  }
+  .paso:hover{background:var(--blanco);color:var(--negro)}
+  .paso:hover .paso-num{color:var(--negro)}
+  .paso:hover p{color:#333}
+  .paso-num{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
+    color:#8f8f8f;margin-bottom:20px;display:flex;align-items:center;gap:10px;
+    transition:color .3s;
+  }
+  .paso-num::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor}
+  .paso h3{
+    font-family:var(--display);font-size:1.35rem;text-transform:uppercase;
+    letter-spacing:-.01em;margin-bottom:14px;
+  }
+  .paso p{font-size:.95rem;line-height:1.6;color:#c6c6c6;transition:color .3s}
+  .ritual-dot-bg{
+    position:absolute;left:-18%;bottom:-46%;
+    width:56vw;height:56vw;border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.14);
+    pointer-events:none;
+  }
+
+  /* ============ PREVENTA ============ */
+  .preventa{
+    padding:150px 32px;text-align:center;position:relative;overflow:hidden;
+  }
+  .preventa-dot{
+    position:absolute;left:50%;top:50%;
+    width:130vmax;height:130vmax;border-radius:50%;
+    background:var(--gris);
+    transform:translate(-50%,-50%) scale(var(--esc,0));
+    pointer-events:none;z-index:-1;
+    will-change:transform;
+  }
+  .preventa h2{
+    font-family:var(--display);
+    font-size:clamp(2.4rem,6.5vw,5.4rem);
+    line-height:.95;letter-spacing:-.03em;text-transform:uppercase;
+    max-width:16ch;margin:0 auto 26px;
+  }
+  .preventa-intro{
+    max-width:52ch;margin:0 auto 44px;
+    font-size:1.05rem;line-height:1.6;color:#2c2c2c;
+  }
+  .form-preventa{
+    display:flex;gap:0;max-width:560px;margin:0 auto 38px;
+    border:2.5px solid var(--negro);
+    background:var(--blanco);
+    box-shadow:10px 10px 0 var(--negro);
+  }
+  .form-preventa input{
+    flex:1;border:none;padding:18px 22px;
+    font-family:var(--mono);font-size:.9rem;
+    outline:none;min-width:0;background:transparent;
+  }
+  .form-preventa button{
+    border:none;border-left:2.5px solid var(--negro);
+    background:var(--negro);color:var(--blanco);
+    font-family:var(--body);font-weight:700;font-size:.84rem;
+    letter-spacing:.08em;text-transform:uppercase;
+    padding:18px 32px;
+    transition:background .2s,color .2s;
+  }
+  .form-preventa button:hover{background:var(--blanco);color:var(--negro)}
+  .preventa-nota{
+    margin:0 auto;font-family:var(--mono);font-size:.72rem;
+    color:var(--gris-medio);letter-spacing:.05em;
+    max-width:44ch;line-height:1.6;
+  }
+  .form-ok{display:none;font-family:var(--mono);font-size:1rem;margin:0 0 24px}
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--negro);color:var(--blanco);
+    padding:70px 32px 36px;
+  }
+  .footer-inner{max-width:1280px;margin:0 auto}
+  .footer-gigante{
+    font-family:var(--display);
+    font-size:clamp(4rem,16vw,15rem);
+    line-height:.85;letter-spacing:-.04em;
+    display:flex;align-items:baseline;
+    margin-bottom:54px;
+    user-select:none;
+  }
+  .footer-gigante .p{
+    width:.5em;height:.5em;border-radius:50%;
+    background:var(--blanco);margin-left:.08em;
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .footer-gigante:hover .p{transform:scale(1.35)}
+  .footer-fila{
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:20px;
+    border-top:1px solid #333;padding-top:28px;
+  }
+  footer nav{display:flex;gap:30px}
+  footer a{
+    color:var(--blanco);text-decoration:none;
+    font-family:var(--mono);font-size:.74rem;
+    letter-spacing:.12em;text-transform:uppercase;
+  }
+  footer a:hover{text-decoration:underline}
+  .footer-legal{
+    font-family:var(--mono);font-size:.65rem;color:#8f8f8f;
+    margin-top:22px;line-height:1.6;
+  }
+
+  /* ============ REVEALS ============ */
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-d1{transition-delay:.1s}
+  .reveal-d2{transition-delay:.2s}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    .intro{display:none}
+    html{scroll-behavior:auto}
+    body{cursor:auto}
+    a,button,input{cursor:pointer}
+    .cursor{display:none}
+    .palabra-giratoria{color:var(--negro);-webkit-text-stroke:0}
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px){
+    .producto{grid-template-columns:1fr}
+    .producto-visual{border-right:none;border-bottom:1px solid var(--negro);padding:70px 24px}
+    .producto-info{padding:64px 24px}
+    .numeros{padding:80px 24px}
+    .numeros-grid{grid-template-columns:1fr}
+    .numero:not(:last-child){border-right:none}
+    .datos{grid-template-columns:1fr;gap:48px;padding:0 24px 80px}
+    .panel{box-shadow:8px 8px 0 var(--negro)}
+    .pasos{grid-template-columns:1fr}
+    .ritual,.preventa{padding:80px 24px}
+    .hero{padding:110px 24px 90px}
+    header{padding:16px 20px}
+    .form-preventa{flex-direction:column;box-shadow:8px 8px 0 var(--negro)}
+    .form-preventa button{border-left:none;border-top:2.5px solid var(--negro)}
+    .hero-scroll{left:24px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- INTRO -->
+<div class="intro" aria-hidden="true">
+  <div class="intro-palabra">OUTRO<span class="intro-punto"></span></div>
+</div>
+
+<header>
+  <a class="logo" href="#top">OUTRO<span>.</span></a>
+  <a class="header-link" href="#preventa">Preventa — Lote 001</a>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-dot" id="heroDot" aria-hidden="true"></div>
+    <p class="hero-eyebrow">Outro presenta su primer suplemento</p>
+    <h1 aria-label="El punto final a las excusas">
+      <span class="linea-fija">El punto</span>
+      <span class="linea-fija">final a</span>
+      <span class="palabra-caja">
+        <span class="palabra-giratoria" id="palabra">las excusas</span>
+        <span class="punto-sello" id="sello" aria-hidden="true"></span>
+      </span>
+    </h1>
+    <p class="hero-sub">
+      La proteína hecha por tu gym, para tu gym. Sin fórmulas infladas,
+      sin promesas mágicas. Solo lo que tu cuerpo necesita para cerrar
+      el día que sí cumpliste. Punto.
+    </p>
+    <div class="hero-cta">
+      <a class="btn" href="#preventa"><span class="b-dot"></span>Apartar la mía</a>
+      <a class="btn btn-outline" href="#producto">Ver el producto</a>
+    </div>
+    <p class="hero-scroll">Baja</p>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>30g de proteína</span><i class="dot-sep"></i>
+      <span class="hueco">0 azúcar añadida</span><i class="dot-sep"></i>
+      <span>Hecho por Outro</span><i class="dot-sep"></i>
+      <span class="hueco">Lote 001</span><i class="dot-sep"></i>
+      <span>30g de proteína</span><i class="dot-sep"></i>
+      <span class="hueco">0 azúcar añadida</span><i class="dot-sep"></i>
+      <span>Hecho por Outro</span><i class="dot-sep"></i>
+      <span class="hueco">Lote 001</span><i class="dot-sep"></i>
+    </div>
+  </div>
+
+  <!-- PRODUCTO -->
+  <section class="producto" id="producto">
+    <div class="producto-visual reveal">
+      <div class="escena">
+        <svg class="anillo" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <path id="circulo" d="M 100,100 m -88,0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0"/>
+          </defs>
+          <text>
+            <textPath href="#circulo">Proteína de suero · Lote 001 · Hecho por Outro · Sin rodeos · </textPath>
+          </text>
+        </svg>
+        <div class="tarro" role="img" aria-label="Bote negro de proteína Outro con etiqueta blanca">
+          <div class="tarro-etiqueta">
+            <div class="marca">OUTRO.</div>
+            <div class="tipo">Proteína de suero</div>
+            <div class="dato">30 servicios · 900 g</div>
+            <div class="dato">Sabor: por anunciar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="producto-info">
+      <p class="seccion-eyebrow reveal">El producto</p>
+      <h2 class="reveal reveal-d1">Hecho en el gym, no en un laboratorio <em>de marketing</em></h2>
+      <p class="reveal reveal-d1">
+        No somos una marca de suplementos que abrió un gym. Somos un gym que se cansó
+        de recomendar productos que no haría suyos. Así que hicimos el nuestro.
+      </p>
+      <p class="reveal reveal-d2">
+        Cada decisión de la fórmula pasó por la misma pregunta que te hacemos en el piso:
+        ¿esto te acerca o te distrae? Lo que no sumaba, se quedó fuera.
+      </p>
+      <div class="claims reveal reveal-d2">
+        <span class="claim">Sin rellenos</span>
+        <span class="claim">Etiqueta transparente</span>
+        <span class="claim">Probado por coaches</span>
+        <span class="claim">Lote pequeño</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NÚMEROS -->
+  <section class="numeros">
+    <h2 class="numeros-titulo reveal">Tres números dicen más que cualquier eslogan</h2>
+    <div class="numeros-grid">
+      <div class="numero reveal">
+        <span class="cifra">30</span>
+        <span class="unidad">Gramos de proteína</span>
+        <p class="detalle">Por servicio. Declarados, medidos y sin redondeos optimistas.</p>
+      </div>
+      <div class="numero reveal reveal-d1">
+        <span class="cifra">0</span>
+        <span class="unidad">Azúcar añadida</span>
+        <p class="detalle">Cero. También cero blends propietarios y cero letras chiquitas.</p>
+      </div>
+      <div class="numero reveal reveal-d2">
+        <span class="cifra">001</span>
+        <span class="unidad">Número de lote</span>
+        <p class="detalle">Primera producción, tiraje corto. Cuando se acaba, se acaba.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETIQUETA -->
+  <section class="datos">
+    <div class="datos-copy">
+      <p class="seccion-eyebrow reveal">La etiqueta habla</p>
+      <h2 class="reveal reveal-d1">Lo que ves es lo que hay</h2>
+      <p class="reveal reveal-d1">
+        En un mundo de fórmulas secretas y letras chiquitas, nuestra etiqueta
+        es el argumento de venta. Cada gramo declarado, cada ingrediente con
+        nombre y apellido.
+      </p>
+      <p class="reveal reveal-d2">
+        Si un número no te convence, pregúntanos en recepción.
+        El que la hizo entrena junto a ti.
+      </p>
+    </div>
+    <div class="panel reveal reveal-d1" aria-label="Información nutricional por servicio">
+      <div class="panel-titulo">Información</div>
+      <div class="panel-sub">Por servicio (30 g) — 30 servicios por bote</div>
+      <div class="panel-fila destacada"><strong>Proteína</strong><strong>30 g</strong></div>
+      <div class="panel-fila"><span>Azúcar añadida</span><strong>0 g</strong></div>
+      <div class="panel-fila"><span>Carbohidratos</span><strong>3 g</strong></div>
+      <div class="panel-fila"><span>Grasas</span><strong>1.5 g</strong></div>
+      <div class="panel-fila"><span>BCAA naturales</span><strong>6.6 g</strong></div>
+      <div class="panel-fila"><span>Ingredientes ocultos</span><strong>0</strong></div>
+      <p class="panel-nota">
+        * Valores de ejemplo para la preventa. La etiqueta final del Lote 001
+        se publica antes del envío. Sin blends propietarios, nunca.
+      </p>
+    </div>
+  </section>
+
+  <!-- RITUAL -->
+  <section class="ritual">
+    <div class="ritual-dot-bg" aria-hidden="true"></div>
+    <div class="ritual-inner">
+      <p class="seccion-eyebrow reveal">Cómo se usa</p>
+      <h2 class="reveal reveal-d1">Tres pasos <em>y punto</em></h2>
+      <div class="pasos">
+        <div class="paso reveal">
+          <span class="paso-num">Paso 01</span>
+          <h3>Termina tu sesión</h3>
+          <p>La proteína no reemplaza el trabajo. Primero cumple con la última serie; el suplemento es el cierre, no el atajo.</p>
+        </div>
+        <div class="paso reveal reveal-d1">
+          <span class="paso-num">Paso 02</span>
+          <h3>Un scoop, agua o leche</h3>
+          <p>350 ml, agita 10 segundos. Se disuelve sin grumos porque odiamos los grumos tanto como tú.</p>
+        </div>
+        <div class="paso reveal reveal-d2">
+          <span class="paso-num">Paso 03</span>
+          <h3>Punto final</h3>
+          <p>30 gramos de proteína para cerrar el día. Mañana se repite. Así se construye lo que viniste a construir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVENTA -->
+  <section class="preventa" id="preventa">
+    <div class="preventa-dot" id="preventaDot" aria-hidden="true"></div>
+    <p class="seccion-eyebrow reveal" style="justify-content:center">Lote 001 · Unidades limitadas</p>
+    <h2 class="reveal reveal-d1">Ponle punto final a tu excusa favorita</h2>
+    <p class="preventa-intro reveal reveal-d1">
+      Deja tu correo y sé de los primeros en apartar el Lote 001 con precio de
+      preventa exclusivo para miembros. Cuando se acabe, se acabó.
+    </p>
+    <form class="form-preventa reveal reveal-d2" id="formPreventa">
+      <input type="email" name="email" placeholder="tu@correo.com" required aria-label="Correo electrónico">
+      <button type="submit">Apartar</button>
+    </form>
+    <p class="form-ok" id="formOk">Listo. Te avisamos primero. Punto.</p>
+    <p class="preventa-nota reveal reveal-d2">Sin spam. Solo el aviso de lanzamiento y tu precio de preventa.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-gigante" aria-hidden="true">OUTRO<span class="p"></span></div>
+    <div class="footer-fila">
+      <nav>
+        <a href="#producto">Producto</a>
+        <a href="#preventa">Preventa</a>
+        <a href="https://instagram.com" rel="noopener">Instagram</a>
+      </nav>
+      <span style="font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:#8f8f8f">LEÓN, GTO — MX</span>
+    </div>
+    <p class="footer-legal">
+      © 2026 Outro Gym. Este producto no es un medicamento.
+      El consumo de este producto es responsabilidad de quien lo usa y de quien lo recomienda.
+    </p>
+  </div>
+</footer>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Cursor: el punto ----
+  const cursor = document.getElementById('cursor');
+  if (cursor && window.matchMedia('(pointer:fine)').matches && !reduceMotion) {
+    let cx = -100, cy = -100, tx = -100, ty = -100;
+    window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+    (function loop(){
+      cx += (tx - cx) * .22;
+      cy += (ty - cy) * .22;
+      cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,.claim,input').forEach(el=>{
+      el.addEventListener('mouseenter',()=>cursor.classList.add('grande'));
+      el.addEventListener('mouseleave',()=>cursor.classList.remove('grande'));
+    });
+  }
+
+  // ---- Palabra giratoria en el hero ----
+  const palabras = ['las excusas','la flojera','el “mañana”','las promesas','tu versión anterior'];
+  const palabraEl = document.getElementById('palabra');
+  const selloEl = document.getElementById('sello');
+  let idx = 0;
+  function sellar(){
+    selloEl.classList.remove('sellar');
+    void selloEl.offsetWidth;
+    selloEl.classList.add('sellar');
+  }
+  if (!reduceMotion) {
+    palabraEl.classList.add('entrando');
+    sellar();
+    setInterval(()=>{
+      idx = (idx + 1) % palabras.length;
+      palabraEl.classList.remove('entrando');
+      void palabraEl.offsetWidth;
+      palabraEl.textContent = palabras[idx];
+      palabraEl.classList.add('entrando');
+      sellar();
+    }, 2600);
+  }
+
+  // ---- Parallax del punto de fondo ----
+  const heroDot = document.getElementById('heroDot');
+  const preventaDot = document.getElementById('preventaDot');
+  const preventaSec = document.getElementById('preventa');
+  if (!reduceMotion) {
+    let ticking = false;
+    window.addEventListener('scroll', ()=>{
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(()=>{
+        const y = window.scrollY;
+        if (heroDot) heroDot.style.transform = `translateY(${y * .25}px)`;
+        if (preventaDot && preventaSec) {
+          const r = preventaSec.getBoundingClientRect();
+          const prog = Math.min(1, Math.max(0, (window.innerHeight - r.top) / (window.innerHeight + r.height * .6)));
+          preventaDot.style.setProperty('--esc', (prog * .9).toFixed(3));
+        }
+        ticking = false;
+      });
+    }, {passive:true});
+  } else if (preventaDot) {
+    preventaDot.style.setProperty('--esc', '.9');
+  }
+
+  // ---- Reveals ----
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // ---- Form (demo — conectar a Mailchimp / Sheets / backend) ----
+  document.getElementById('formPreventa').addEventListener('submit',(ev)=>{
+    ev.preventDefault();
+    ev.target.style.display='none';
+    document.getElementById('formOk').style.display='block';
+  });
+</script>
+
+</body>
+</html>
