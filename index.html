@@ -239,9 +239,21 @@
     border-right:1px solid var(--negro);
     position:relative;overflow:hidden;
   }
-  .escena{position:relative;width:min(360px,80%);aspect-ratio:1}
+  .escena{
+    position:relative;
+    width:min(360px,80%);
+    aspect-ratio:1;
+  }
+  .escena::before{
+    content:'';
+    display:block;
+    padding-top:100%;
+  }
   .anillo{
-    position:absolute;inset:-14%;
+    position:absolute;
+    inset:-14%;
+    width:128%;
+    height:128%;
     animation:girar 26s linear infinite;
   }
   .anillo text{
