@@ -547,6 +547,15 @@
     .form-preventa button{border-left:none;border-top:2.5px solid var(--negro)}
     .hero-scroll{left:24px}
   }
+  @media (max-width:520px){
+    .hero h1{font-size:clamp(2.2rem,11vw,2.8rem)}
+    .palabra-caja{font-size:.85em}
+    .palabra-giratoria{-webkit-text-stroke:1.8px var(--negro)}
+    .marquee span{font-size:1rem}
+    .producto-info h2 em,.ritual h2 em{-webkit-text-stroke:1.6px currentColor}
+    .btn{padding:14px 26px;font-size:.8rem}
+    .panel{padding:18px 20px}
+  }
 </style>
 </head>
 <body>
@@ -782,7 +791,10 @@
   }
 
   // ---- Palabra giratoria en el hero ----
-  const palabras = ['las excusas','la flojera','el “mañana”','las promesas','tu versión anterior'];
+  const esAngosto = window.matchMedia('(max-width: 520px)').matches;
+  const palabras = esAngosto
+    ? ['las excusas','la flojera','el “mañana”','las promesas']
+    : ['las excusas','la flojera','el “mañana”','las promesas','tu versión anterior'];
   const palabraEl = document.getElementById('palabra');
   const selloEl = document.getElementById('sello');
   let idx = 0;
